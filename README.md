@@ -14,6 +14,9 @@ ATELIER 行銷圖文生成器的介紹頁與三步驟操作手冊，透過 GitHu
 | `index.html` | 整個頁面，單一檔案 |
 | `.nojekyll` | 略過 GitHub Pages 的 Jekyll 處理 |
 
+產生 `index.html` 的建置源碼放在 `src/`，僅保留在本機、不納入版本控制（見 `.gitignore`）。
+被發佈的成品有追蹤，產生它的源碼沒有。
+
 ## 這個頁面的形態
 
 `index.html` 是**完全自帶的單一檔案**：15 張圖片（12 張成品範例、3 張操作截圖）全部以
@@ -40,4 +43,12 @@ CSS、`ppa-btn.css`，以及 `image-slot.js` 這個 custom element；12 張成�
 而是存在 `project/.image-slots.state.json` 裡。`index.html` 是把這些依賴全部解掉、內聯成
 單檔的結果。
 
-要修改內容，請改設計原稿或直接編輯 `index.html`，commit 後 GitHub Pages 會自動重新發佈。
+在本機，`src/build.py` 會把這些依賴全部解掉並重新產生根目錄的 `index.html`：
+
+```
+python3 src/build.py
+```
+
+建置是決定性的——同樣的 bundle 會產出位元完全相同的 `index.html`，所以重跑不會造成無意義的
+diff。改完 commit 並 push，GitHub Pages 就會自動重新發佈。若手邊沒有 `src/`，也可以直接編輯
+`index.html`。
